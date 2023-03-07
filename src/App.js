@@ -1,7 +1,5 @@
 import { createContext, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
 import { Route, Routes } from "react-router-dom"
-import { decrement, increment } from "./redux/slices/filterSlice"
 
 import Header from "./components/Header"
 import Home from "./pages/Home"
