@@ -1,13 +1,15 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import { AiOutlineShoppingCart } from "react-icons/ai"
+import { useSelector } from "react-redux"
 
 import logo from "../assets/img/pizza-logo.svg"
 import Search from "./Search"
-import { SearchContext } from "../App"
 
 const Header = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext)
+  const { items, totalPrice } = useSelector(state => state.cart)
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+
   return (
     <div className="header">
       <div className="container">
@@ -20,13 +22,13 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Search />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>8 €</span>
+            <span>{totalPrice} €</span>
             <div className="button__delimiter"></div>
             <AiOutlineShoppingCart style={{ width: "20px", height: "20px" }} />
-            <span>1</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>
