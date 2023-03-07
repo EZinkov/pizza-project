@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import axios from "axios"
 
 import { setCategoryId } from "../redux/slices/filterSlice"
 import Categories from "../components/Categories"
@@ -33,14 +34,15 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : ""
     const category = categoryId > 0 ? `category=${categoryId}` : ""
 
-    fetch(
-      `https://64037b3d302b5d671c50a3e4.mockapi.io/items?page=1&${category}&sortBy=${sort.sortProperty}&order=desc${search}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setData(data)
+    axios
+      .get(
+        `https://64037b3d302b5d671c50a3e4.mockapi.io/items?page=1&${category}&sortBy=${sort.sortProperty}&order=desc${search}`
+      )
+      .then(res => {
+        setData(res.data)
         setIsLoading(false)
       })
+
     window.scrollTo(0, 0)
   }, [categoryId, sort.sortProperty, searchValue])
 
