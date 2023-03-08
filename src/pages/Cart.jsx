@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { AiOutlineShoppingCart } from "react-icons/ai"
 import { BsTrash3 } from "react-icons/bs"
@@ -12,6 +12,7 @@ const Cart = () => {
   const { totalPrice, items } = useSelector(state => state.cart)
   const dispatch = useDispatch()
   const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+  const [showModal, setShowModal] = useState(false)
 
   const onClickClear = () => {
     if (window.confirm("Empty trash?")) {
@@ -75,12 +76,37 @@ const Cart = () => {
 
               <span>Go back</span>
             </Link>
-            <div className="button pay-btn">
-              <span>Pay now</span>
+            <div>
+              <button
+                onClick={() => setShowModal(true)}
+                className="button pay-btn"
+              >
+                Pay now
+              </button>
             </div>
           </div>
         </div>
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal__content">
+            <p>Name Surname</p>
+            <input type="text" />
+            <p>Card Number</p>
+            <input type="number" />
+            <div>
+              <p>Expiration</p>
+              <input type="number" />
+              <p>CVC</p>
+              <input type="number" />
+            </div>
+            <div>
+              <button onClick={() => setShowModal(false)}>Close</button>
+              <button>Pay</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
