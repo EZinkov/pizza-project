@@ -7,7 +7,6 @@ import Categories from "../components/Categories"
 import PizzaBlock from "../components/PizzaBlock"
 import Skeleton from "../components/PizzaBlock/Skeleton"
 import Sort from "../components/Sort"
-import Pagination from "../components/Pagination"
 import { SearchContext } from "../App"
 
 const Home = () => {
@@ -54,7 +53,6 @@ const Home = () => {
       </div>
       <h2 className="content__title">All pizzas</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination />
     </div>
   )
 }
